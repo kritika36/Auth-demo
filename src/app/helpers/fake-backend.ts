@@ -36,9 +36,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function order() {
             if (headers.get('Authorization') === 'Bearer' + token) {
-                return ok({
-                    body: [1, 2, 3]
-                });
+                return ok(
+                    [1, 2, 3]
+                );
             } else {
                 return of(new HttpResponse({ status: 401 }));
             }
