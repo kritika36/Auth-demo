@@ -1,16 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import{map} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OrderService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient ) { }
 
-  getOrders() { 
-    return this.http.get('/api/orders')
-      .pipe(
-      map(response => response));
+  getOrders() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', 'Bearer' + token);
+    return this.http.get('/api/orders', {headers});
   }
 }
